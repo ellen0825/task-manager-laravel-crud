@@ -39,7 +39,7 @@ class TaskController extends Controller
         Task::create($validated);
 
         return redirect()->route('tasks.index')
-            ->with('success', 'Task created successfully');
+            ->with('success', 'Задача успешно создана');
     }
 
     public function show(Task $task)
@@ -63,7 +63,7 @@ class TaskController extends Controller
         $task->update($validated);
 
         return redirect()->route('tasks.index')
-            ->with('success', 'Task updated successfully');
+            ->with('success', 'Задача успешно обновлена');
     }
 
     public function destroy(Task $task)
@@ -71,6 +71,6 @@ class TaskController extends Controller
         $task->delete();
 
         return redirect()->route('tasks.index')
-            ->with('success', 'Task deleted successfully');
+            ->with('success', 'Задача успешно удалена');
     }
 }

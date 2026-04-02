@@ -61,7 +61,7 @@
 <div class="page-header d-flex justify-content-between align-items-center flex-wrap gap-3">
     <div>
         <h1>📋 Task Manager</h1>
-        <p>{{ $tasks->total() }} task{{ $tasks->total() !== 1 ? 's' : '' }} total</p>
+        <p>{{ $tasks->total() }} {{ $tasks->total() === 1 ? 'задача' : ($tasks->total() < 5 ? 'задачи' : 'задач') }} всего</p>
     </div>
     <a href="{{ route('tasks.create') }}" class="btn btn-new">+ New Task</a>
 </div>
@@ -77,21 +77,21 @@
                     </svg>
                 </span>
                 <input type="text" name="search" class="form-control border-start-0 ps-0"
-                       placeholder="Search by title…" value="{{ request('search') }}">
+                       placeholder="Поиск по названию…" value="{{ request('search') }}">
             </div>
         </div>
         <div class="col-sm-3">
             <select name="status" class="form-select">
-                <option value="">All statuses</option>
-                <option value="new"         {{ request('status') === 'new'         ? 'selected' : '' }}>New</option>
-                <option value="in_progress" {{ request('status') === 'in_progress' ? 'selected' : '' }}>In Progress</option>
-                <option value="done"        {{ request('status') === 'done'        ? 'selected' : '' }}>Done</option>
+                <option value="">Все статусы</option>
+                <option value="new"         {{ request('status') === 'new'         ? 'selected' : '' }}>Новая</option>
+                <option value="in_progress" {{ request('status') === 'in_progress' ? 'selected' : '' }}>В процессе</option>
+                <option value="done"        {{ request('status') === 'done'        ? 'selected' : '' }}>Завершённая</option>
             </select>
         </div>
         <div class="col-sm-auto d-flex gap-2">
-            <button type="submit" class="btn btn-primary">Filter</button>
+            <button type="submit" class="btn btn-primary">Фильтр</button>
             @if(request('search') || request('status'))
-                <a href="{{ route('tasks.index') }}" class="btn btn-outline-secondary">✕ Reset</a>
+                <a href="{{ route('tasks.index') }}" class="btn btn-outline-secondary">✕ Сбросить</a>
             @endif
         </div>
     </form>
@@ -104,15 +104,15 @@
             <path d="M5 10.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
             <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3z"/>
         </svg>
-        <p class="fs-5 fw-semibold">No tasks found</p>
-        <p class="small">Try adjusting your filters or <a href="{{ route('tasks.create') }}">create a new task</a>.</p>
+        <p class="fs-5 fw-semibold">Задачи не найдены</p>
+        <p class="small">Попробуйте изменить фильтры или <a href="{{ route('tasks.create') }}">создайте новую задачу</a>.</p>
     </div>
 @else
     <div class="d-flex flex-column gap-3">
         @foreach($tasks as $task)
         @php
             $statusClass = 'status-' . $task->status;
-            $labels = ['new' => 'New', 'in_progress' => 'In Progress', 'done' => 'Done'];
+            $labels = ['new' => 'Новая', 'in_progress' => 'В процессе', 'done' => 'Завершённая'];
         @endphp
         <div class="card task-card">
             <div class="card-body d-flex align-items-center gap-3 flex-wrap">
@@ -137,13 +137,13 @@
 
                 {{-- Actions --}}
                 <div class="d-flex gap-1 flex-shrink-0">
-                    <a href="{{ route('tasks.show', $task) }}" class="btn btn-sm btn-outline-primary action-btn">View</a>
-                    <a href="{{ route('tasks.edit', $task) }}" class="btn btn-sm btn-outline-warning action-btn">Edit</a>
+                    <a href="{{ route('tasks.show', $task) }}" class="btn btn-sm btn-outline-primary action-btn">Просмотр</a>
+                    <a href="{{ route('tasks.edit', $task) }}" class="btn btn-sm btn-outline-warning action-btn">Изменить</a>
                     <form action="{{ route('tasks.destroy', $task) }}" method="POST"
-                          onsubmit="return confirm('Delete this task?')">
+                          onsubmit="return confirm('Удалить эту задачу?')">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-sm btn-outline-danger action-btn">Delete</button>
+                        <button class="btn btn-sm btn-outline-danger action-btn">Удалить</button>
                     </form>
                 </div>
 

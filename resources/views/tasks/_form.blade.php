@@ -1,5 +1,5 @@
 <div class="mb-3">
-    <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+    <label for="title" class="form-label">Название <span class="text-danger">*</span></label>
     <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror"
            value="{{ old('title', $task->title ?? '') }}">
     @error('title')
@@ -8,7 +8,7 @@
 </div>
 
 <div class="mb-3">
-    <label for="description" class="form-label">Description</label>
+    <label for="description" class="form-label">Описание</label>
     <textarea name="description" id="description" rows="4"
               class="form-control @error('description') is-invalid @enderror">{{ old('description', $task->description ?? '') }}</textarea>
     @error('description')
@@ -17,10 +17,10 @@
 </div>
 
 <div class="mb-3">
-    <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+    <label for="status" class="form-label">Статус <span class="text-danger">*</span></label>
     <select name="status" id="status" class="form-select @error('status') is-invalid @enderror">
         @php
-            $statuses = ['new' => 'New', 'in_progress' => 'In Progress', 'done' => 'Done'];
+            $statuses = ['new' => 'Новая', 'in_progress' => 'В процессе', 'done' => 'Завершённая'];
             $current  = old('status', $task->status ?? 'new');
         @endphp
         @foreach($statuses as $value => $label)
